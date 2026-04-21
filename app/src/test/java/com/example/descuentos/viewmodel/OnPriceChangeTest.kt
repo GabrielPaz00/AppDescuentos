@@ -1,7 +1,6 @@
-package com.example.descuentos
+package com.example.descuentos.viewmodel
 
-import com.example.descuentos.viewmodel.DescuentosViewModel
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -17,6 +16,6 @@ class OnPriceChangeTest {
     @Test
     fun `onPriceChange updates priceInput state`() {
         viewModel.onPriceChange("1500.50")
-        Assert.assertEquals("1500.50", viewModel.state.value.priceInput)
+        assertEquals("1500.50", viewModel.state.value.priceInput)
     }
 }

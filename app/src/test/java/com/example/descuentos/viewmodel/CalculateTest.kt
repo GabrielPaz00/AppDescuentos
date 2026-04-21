@@ -1,7 +1,6 @@
-package com.example.descuentos
+package com.example.descuentos.viewmodel
 
-import com.example.descuentos.viewmodel.DescuentosViewModel
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -21,8 +20,8 @@ class CalculateTest {
         viewModel.calculate()
 
         val state = viewModel.state.value
-        Assert.assertEquals(100.0, state.discount, 0.001)
-        Assert.assertEquals(900.0, state.total, 0.001)
+        assertEquals(100.0, state.discount, 0.001)
+        assertEquals(900.0, state.total, 0.001)
     }
 
     @Test
@@ -32,8 +31,8 @@ class CalculateTest {
         viewModel.calculate()
 
         val state = viewModel.state.value
-        Assert.assertEquals(0.0, state.discount, 0.001)
-        Assert.assertEquals(0.0, state.total, 0.001)
+        assertEquals(0.0, state.discount, 0.001)
+        assertEquals(0.0, state.total, 0.001)
     }
 
     @Test
@@ -43,7 +42,7 @@ class CalculateTest {
         viewModel.calculate()
 
         val state = viewModel.state.value
-        Assert.assertEquals(0.0, state.discount, 0.001)
-        Assert.assertEquals(0.0, state.total, 0.001)
+        assertEquals(0.0, state.discount, 0.001)
+        assertEquals(0.0, state.total, 0.001)
     }
 }

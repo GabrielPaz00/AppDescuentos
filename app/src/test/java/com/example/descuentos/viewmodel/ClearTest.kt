@@ -1,7 +1,8 @@
-package com.example.descuentos
+package com.example.descuentos.viewmodel
 
-import com.example.descuentos.viewmodel.DescuentosViewModel
-import org.junit.Assert
+
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 
@@ -23,10 +24,10 @@ class ClearTest {
         viewModel.clear()
 
         val state = viewModel.state.value
-        Assert.assertEquals("", state.priceInput)
-        Assert.assertEquals("", state.discountInput)
-        Assert.assertEquals(0.0, state.discount, 0.001)
-        Assert.assertEquals(0.0, state.total, 0.001)
-        Assert.assertNull(state.validDiscount)
+        assertEquals("", state.priceInput)
+        assertEquals("", state.discountInput)
+        assertEquals(0.0, state.discount, 0.001)
+        assertEquals(0.0, state.total, 0.001)
+        assertNull(state.validDiscount)
     }
 }
