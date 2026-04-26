@@ -21,7 +21,7 @@ class DescuentosIntegrationTest {
     }
 
     @Test
-    fun `Ruta CA1 y CA4 - Ingreso valido y calculo exitoso`() {
+    fun `TC-INT-01 - Ingreso valido y calculo exitoso`() {
         // 1. Simular interacción del usuario (Ingreso de datos)
         viewModel.onPriceChange("1000.0")
         viewModel.onDiscountChange("15.0")
@@ -43,10 +43,10 @@ class DescuentosIntegrationTest {
     }
 
     @Test
-    fun `Ruta CA3 - Descuento invalido detiene el calculo`() {
+    fun `TC-INT-02 - Bloqueo de calculo por limite superior excedido`() {
         // 1. Ingresar precio y un descuento mayor a 100
         viewModel.onPriceChange("500.0")
-        viewModel.onDiscountChange("110.0")
+        viewModel.onDiscountChange("101.0")
 
         // 2. El estado debe reflejar que el descuento es inválido de inmediato
         assertFalse(viewModel.state.value.validDiscount == true)
@@ -61,8 +61,8 @@ class DescuentosIntegrationTest {
     }
 
     @Test
-    fun `Ruta CA2 - Boton limpiar reinicia todo el estado`() {
-        // 1. Establecer un estado con datos sucios
+    fun `TC-INT-03 - Restauracion integral del estado`() {
+        // 1. Establecer un estado con datos
         viewModel.onPriceChange("250.0")
         viewModel.onDiscountChange("10.0")
         viewModel.calculate()
@@ -78,13 +78,29 @@ class DescuentosIntegrationTest {
         assertEquals(0.0, state.total, 0.0)
         assertNull(state.validDiscount)
     }
-
     @Test
-    fun `Ruta de borde - Descuento vacio maneja nulos correctamente`() {
-        // 1. El usuario borra el contenido del input de descuento
-        viewModel.onDiscountChange("")
+    fun `TC-INT-04 - Analisis de Valor Limite`() {
+        viewModel.onPriceChange("200.0")
+        viewModel.onDiscountChange("100.0")
 
-        // 2. Verificar que validDiscount retorna a null (estado neutro)
-        assertNull(viewModel.state.value.validDiscount)
+        assertTrue(viewModel.state.value.validDiscount == true)
+
+        viewModel.calculate()
+        val state = viewModel.state.value
+        assertEquals("200.00", formatWithCommas(state.discount))
+        assertEquals("0.00", formatWithCommas(state.total))
+    }
+    @Test
+    fun `TC-INT-05 - Analisis de Valor Limite`() {
+        viewModel.onPriceChange("350.0")
+        viewModel.onDiscountChange("0.0")
+
+        assertTrue(viewModel.state.value.validDiscount == true)
+
+        viewModel.calculate()
+        val state = viewModel.state.value
+        assertEquals("0.00", formatWithCommas(state.discount))
+        assertEquals("350.00", formatWithCommas(state.total))
     }
 }
+
