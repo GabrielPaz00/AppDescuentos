@@ -56,7 +56,7 @@ class DescuentosTest {
     }
 
     @Test
-    fun `TC-03 - Restauracion integral del estado`() {
+    fun `TC-03 - Restauracion integral de los nodos`() {
         composeTestRule.setContent {
             MyApplicationTheme {
                 DescuentosView(viewModel = DescuentosViewModel())
